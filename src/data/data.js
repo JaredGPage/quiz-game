@@ -1,4 +1,5 @@
 export const questions = [
+  //questions and the answers, can add more if needed
     {
       question: "What do you feel when you're scared?",
       options: ["Happy", "Sad", "Scared", "Angry"],

@@ -10,8 +10,7 @@ const AvatarSelection = ({ onSelectAvatar }) => {
   const [accessory, setAccessory] = useState("accessory2");
   const navigate = useNavigate();
 
-
-
+  
   const handleSelectAvatar = (selectedAvatar) => {
     setAvatar(selectedAvatar, "");
   };

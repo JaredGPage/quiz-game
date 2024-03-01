@@ -3,9 +3,10 @@ import { questions } from "../../data/data";
 import Card from "../avatar-card/avatar-card";
 import { useLocation, Link } from "react-router-dom";
 import "./quiz.styles.css";
-import Result from "../result/result";
+// import Result from "../result/result";//decided not to use
 
 const Quiz = () => {
+  //retrieve avatar and accessory
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
   const avatar = searchParams.get("avatar");
@@ -20,7 +21,11 @@ const Quiz = () => {
     if (selectedAnswer === questions[currentQuestionIndex].answer) {
       const currentTime = new Date().getTime();
       const timeTaken = currentTime - startTime;
-      const newScore = score + (10000 - timeTaken);
+      
+      let newScore = score + (10000 - timeTaken);
+      if (newScore < 0) {//ensure value doesn't go into negatives
+        newScore = 1;
+      }
       setScore(newScore);
     }
 
@@ -28,6 +33,7 @@ const Quiz = () => {
     setStartTime(new Date().getTime()); // Start timer for the next question
   };
 
+//initiated when quiz starts and for each quesiton to reset the timers
   const startQuiz = () => {
     setCurrentQuestionIndex(0); 
     setScore(0);
@@ -41,9 +47,11 @@ const Quiz = () => {
       <h2 className="select-title">Questions!</h2>
 
       {/* <Result score={score}/> */}
+      {/* Display avatar and accessory/boarder */}
       <Card avatar={avatar} accessory={accessory} />
 
       {!startTime && currentQuestionIndex < questions.length && (
+        // Set initial start and run the timer
         <div>
           <h2>This quiz is scored depending on how fast you answer correctly.</h2>
           <h2>Press start quiz when you are ready to begin!</h2>
@@ -52,7 +60,7 @@ const Quiz = () => {
       )}
 
       {showQuestions && currentQuestionIndex < questions.length ? (
-        
+        // display question, answers and set correct answer
         <div>
           <h2>{questions[currentQuestionIndex].question}</h2>
           {questions[currentQuestionIndex].options.map((option, index) => (
@@ -62,7 +70,7 @@ const Quiz = () => {
           ))}
         </div>
       ) : null}
-      
+      {/* check if quiz complete and show result */}
       {showQuestions && currentQuestionIndex >= questions.length && (
         <div>
           <h2>Quiz Completed!</h2>
