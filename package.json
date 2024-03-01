@@ -1,7 +1,7 @@
 {
   "name": "quiz-game",
   "version": "0.1.0",
-  "private": false,
+  "private": true,
   "homepage": "https:/https://github.com/JaredGPage/quiz-game",
   "dependencies": {
     "@testing-library/jest-dom": "^5.17.0",
